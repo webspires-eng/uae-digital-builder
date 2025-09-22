@@ -15,6 +15,10 @@ import {
   TrendingUp,
   Rocket,
   Globe2,
+  Package, // New icon for Projects Delivered
+  UserPlus, // New icon for Active Clients
+  Briefcase, // New icon for Years Experience
+  MapPin, // New icon for Emirates Served
 } from "lucide-react";
 
 // Swiper
@@ -56,6 +60,14 @@ const testimonials = [
 ];
 
 const About = () => {
+  // Define stats with icons
+  const trustStats = [
+    { k: "120+", v: "Projects Delivered", icon: Package },
+    { k: "45+", v: "Active Clients", icon: UserPlus },
+    { k: "8+", v: "Years Experience", icon: Briefcase },
+    { k: "5", v: "Emirates Served", icon: MapPin },
+  ];
+
   return (
     <Layout>
       <div className="bg-background">
@@ -111,22 +123,21 @@ const About = () => {
                 </div>
 
                 {/* Floating stat */}
-               {/* Floating stat */}
-<div className="hidden md:flex absolute -bottom-6 -left-6">
-  <Card className="rounded-2xl bg-black/30 backdrop-blur-md border-white/10">
-    <CardContent className="p-4 sm:p-5">
-      <div className="flex items-center gap-3">
-        <TrendingUp className="h-5 w-5 text-white" />
-        <div>
-          <div className="text-sm text-white/80">
-            Avg. client growth (12 mo)
-          </div>
-          <div className="text-lg font-semibold text-white">+172%</div>
-        </div>
-      </div>
-    </CardContent>
-  </Card>
-</div>
+                <div className="hidden md:flex absolute -bottom-6 -left-6">
+                  <Card className="rounded-2xl bg-black/30 backdrop-blur-md border-white/10">
+                    <CardContent className="p-4 sm:p-5">
+                      <div className="flex items-center gap-3">
+                        <TrendingUp className="h-5 w-5 text-white" />
+                        <div>
+                          <div className="text-sm text-white/80">
+                            Avg. client growth (12 mo)
+                          </div>
+                          <div className="text-lg font-semibold text-white">+172%</div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
               </div>
             </div>
           </div>
@@ -136,20 +147,21 @@ const About = () => {
         <section className="py-12">
           <div className="mx-auto w-full max-w-[1380px] px-4 md:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-              {[
-                { k: "120+", v: "Projects Delivered" },
-                { k: "45+", v: "Active Clients" },
-                { k: "8+", v: "Years Experience" },
-                { k: "5", v: "Emirates Served" },
-              ].map((s, i) => (
-                <div
-                  key={i}
-                  className="rounded-2xl border border-border/40 bg-card/40 py-6"
-                >
-                  <div className="text-3xl font-bold">{s.k}</div>
-                  <div className="text-sm text-muted-foreground mt-1">{s.v}</div>
-                </div>
-              ))}
+              {trustStats.map((s, i) => {
+                const Icon = s.icon; // Get the icon component
+                return (
+                  <div
+                    key={i}
+                    // Added more visible card styling with hover effect
+                    className="group rounded-2xl border border-border/40 bg-card/40 py-6 px-4
+                               hover:border-primary/50 hover:bg-card/60 transition-all duration-300"
+                  >
+                    <Icon className="mx-auto h-8 w-8 text-primary mb-3 group-hover:scale-110 transition-transform duration-300" /> {/* Icon */}
+                    <div className="text-3xl font-bold gradient-text">{s.k}</div> {/* Gradient text for numbers */}
+                    <div className="text-sm text-muted-foreground mt-1">{s.v}</div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -283,27 +295,7 @@ const About = () => {
           </div>
         </section>
 
-        {/* ======= CTA ======= */}
-        <section className="py-16">
-          <div className="mx-auto w-full max-w-[1380px] px-4 md:px-6">
-            <Card className="rounded-3xl border-border/40 bg-gradient-to-r from-primary/10 via-accent/10 to-transparent">
-              <CardContent className="p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6">
-                <div>
-                  <h3 className="text-2xl md:text-3xl font-bold">
-                    Ready to accelerate your growth?
-                  </h3>
-                  <p className="mt-2 text-muted-foreground">
-                    Let’s map a UAE-ready strategy and start executing this week.
-                  </p>
-                </div>
-                <div className="flex gap-3">
-                  <Button className="btn-accent">Request Free Consultation</Button>
-                  <Button variant="outline">Contact Us</Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
+        
       </div>
     </Layout>
   );

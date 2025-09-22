@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
+import { Card, CardContent } from "@/components/ui/card";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -62,18 +63,27 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       {/* Footer */}
       <footer className="bg-card/50 backdrop-blur-sm border-t border-border/30 mt-20">
         <div className="mx-auto w-full max-w-[1380px] px-4 md:px-6">
-          <div className="py-16 text-center border-b border-border/30">
-            <h2 className="text-4xl font-bold gradient-text mb-6">
-              Ready to Accelerate Your Growth?
-            </h2>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Let's discuss how we can transform your digital presence and drive measurable results.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="btn-accent">Get Free Strategy Session</Button>
-              <Button className="btn-outline">View Our Portfolio</Button>
-            </div>
+          {/* ======= CTA ======= */}
+        <section className="py-16">
+          <div className="mx-auto w-full max-w-[1380px] px-4 md:px-6">
+            <Card className="rounded-3xl border-border/40 bg-gradient-to-r from-primary/10 via-accent/10 to-transparent">
+              <CardContent className="p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div>
+                  <h3 className="text-2xl md:text-3xl font-bold">
+                    Ready to accelerate your growth?
+                  </h3>
+                  <p className="mt-2 text-muted-foreground">
+                    Let’s map a UAE-ready strategy and start executing this week.
+                  </p>
+                </div>
+                <div className="flex gap-3">
+                  <Button className="btn-accent">Request Free Consultation</Button>
+                  <Button variant="outline">Contact Us</Button>
+                </div>
+              </CardContent>
+            </Card>
           </div>
+        </section>
           
           <div className="py-16">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">

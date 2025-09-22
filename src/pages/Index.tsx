@@ -238,33 +238,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl p-8 md:p-16 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Ready to Transform Your Digital Presence?
-            </h2>
-            <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-              Join over 150 successful businesses that have trusted us with their digital growth. 
-              Let's discuss how we can help you achieve your goals in the UAE market.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/contact">
-                <Button className="btn-primary text-lg px-8 py-4">
-                  Start Your Growth Journey
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
-              </Link>
-              <Link to="/about">
-                <Button variant="outline" className="text-lg px-8 py-4">
-                  Learn More About Us
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      
     </Layout>
   );
 };
