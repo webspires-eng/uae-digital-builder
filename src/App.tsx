@@ -9,6 +9,7 @@ import Services from "./pages/Services";
 import SingleService from "./pages/SingleService";
 import OurWork from "./pages/OurWork";
 import SingleWork from "./pages/SingleWork";
+import Insights from "./pages/Insights";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/services/:serviceId" element={<SingleService />} />
           <Route path="/work" element={<OurWork />} />
           <Route path="/work/:workId" element={<SingleWork />} />
+          <Route path="/insights" element={<Insights />} />
           <Route path="/contact" element={<Contact />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
