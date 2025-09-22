@@ -23,7 +23,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           <div className="flex justify-between items-center py-6">
             <div className="flex items-center">
               <Link to="/" className="text-3xl font-bold gradient-text">
-                UAE Marketing Pro
+                Spirs
               </Link>
             </div>
             
