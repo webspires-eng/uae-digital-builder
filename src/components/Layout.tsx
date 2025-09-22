@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin } from "lucide-react";
+import { ThemeToggle } from "./ThemeToggle";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -15,7 +16,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background transition-colors duration-300">
       {/* Header */}
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/60 border-b border-border/30">
         <div className="container-wide">
@@ -46,6 +47,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             </nav>
 
             <div className="flex items-center space-x-4">
+              <ThemeToggle />
               <Button className="btn-accent text-sm">
                 Request Free Consultation
               </Button>
