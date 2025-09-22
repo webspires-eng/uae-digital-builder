@@ -63,27 +63,26 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       {/* Footer */}
       <footer className="bg-card/50 backdrop-blur-sm border-t border-border/30 mt-20">
         <div className="mx-auto w-full max-w-[1380px] px-4 md:px-6">
-          {/* ======= CTA ======= */}
         <section className="py-16">
-          <div className="mx-auto w-full max-w-[1380px] px-4 md:px-6">
-            <Card className="rounded-3xl border-border/40 bg-gradient-to-r from-primary/10 via-accent/10 to-transparent">
-              <CardContent className="p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6">
-                <div>
-                  <h3 className="text-2xl md:text-3xl font-bold">
-                    Ready to accelerate your growth?
-                  </h3>
-                  <p className="mt-2 text-muted-foreground">
-                    Let’s map a UAE-ready strategy and start executing this week.
-                  </p>
-                </div>
-                <div className="flex gap-3">
-                  <Button className="btn-accent">Request Free Consultation</Button>
-                  <Button variant="outline">Contact Us</Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
+  <div className="mx-auto w-full max-w-[1380px] px-4 md:px-6">
+    <Card className="rounded-3xl border-border/40 bg-gradient-to-r from-primary/10 via-accent/10 to-transparent">
+      <CardContent className="p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div>
+          <h3 className="text-2xl md:text-3xl font-bold">
+            Ready to accelerate your growth?
+          </h3>
+          <p className="mt-2 text-muted-foreground">
+            Let’s map a UAE-ready strategy and start executing this week.
+          </p>
+        </div>
+        <div className="flex gap-3">
+          <Button className="btn-accent">Request Free Consultation</Button>
+          <Button variant="outline">Contact Us</Button>
+        </div>
+      </CardContent>
+    </Card>
+  </div>
+</section>
           
           <div className="py-16">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
