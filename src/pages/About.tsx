@@ -1,7 +1,12 @@
+// src/pages/About.tsx
 import Layout from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import hero from "@/assets/hero-image.jpg";
+import trustpilot from "@/assets/trustpilot-logo-icon.svg";
+import google from "@/assets/google-map-icon.svg";
+
+
 import {
   CheckCircle2,
   Shield,
@@ -12,16 +17,51 @@ import {
   Globe2,
 } from "lucide-react";
 
+// Swiper
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
+import "swiper/css";
+
+const testimonials = [
+  {
+    quote:
+      "UAE Digital transformed our online presence. Local insight + global best practices = results.",
+    name: "Ahmed S.",
+    role: "CEO, Tech Startup",
+  },
+  {
+    quote:
+      "A game-changer for our marketing. Strategy first, clean execution, transparent reporting.",
+    name: "Fatima K.",
+    role: "Marketing Manager, F&B Brand",
+  },
+  {
+    quote:
+      "Helped us reach new audiences and grow significantly in the UAE market.",
+    name: "Sarah M.",
+    role: "Director, Luxury Real Estate",
+  },
+  {
+    quote:
+      "Their strategies gave us measurable ROI within months. Highly recommended.",
+    name: "Omar R.",
+    role: "E-commerce Lead",
+  },
+  {
+    quote:
+      "Best agency for performance marketing in the UAE. Professional and transparent.",
+    name: "Laila T.",
+    role: "CMO, Retail Brand",
+  },
+];
+
 const About = () => {
   return (
     <Layout>
-      {/* Page Wrapper */}
       <div className="bg-background">
         {/* ======= HERO ======= */}
         <section className="relative overflow-hidden">
-          {/* soft bg wash */}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-muted/40 via-background to-background" />
-
           <div className="relative mx-auto w-full max-w-[1380px] px-4 md:px-6 py-20 md:py-28">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
               {/* Text */}
@@ -29,19 +69,16 @@ const About = () => {
                 <span className="inline-flex items-center gap-2 rounded-full border border-border/50 bg-card/60 px-3 py-1 text-xs uppercase tracking-wide text-muted-foreground">
                   About us
                 </span>
-
                 <h1 className="mt-4 text-4xl md:text-5xl font-bold leading-tight">
                   Building brands for the{" "}
                   <span className="gradient-text">UAE digital economy</span>
                 </h1>
-
                 <p className="mt-4 text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl">
                   We’re a Dubai-based team blending local insight with global
                   performance marketing. Strategy first, execution fast, results
                   measured.
                 </p>
 
-                {/* Hero bullets */}
                 <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
                   {[
                     "Local-first strategy for the UAE market",
@@ -64,7 +101,6 @@ const About = () => {
 
               {/* Image */}
               <div className="relative">
-                {/* decorative ring */}
                 <div className="absolute -inset-2 rounded-[28px] bg-gradient-to-br from-primary/25 via-accent/20 to-transparent blur-2xl" />
                 <div className="relative rounded-3xl overflow-hidden border border-border/50 bg-card/60 shadow-lg">
                   <img
@@ -74,7 +110,7 @@ const About = () => {
                   />
                 </div>
 
-                {/* quick stats floating card (mobile hides) */}
+                {/* Floating stat */}
                 <div className="hidden md:flex absolute -bottom-6 -left-6">
                   <Card className="rounded-2xl bg-background/80 backdrop-blur-sm border-border/50">
                     <CardContent className="p-4 sm:p-5">
@@ -119,7 +155,7 @@ const About = () => {
 
         {/* ======= STORY + VALUES ======= */}
         <section className="py-20">
-          <div className="mx-auto w-full max-w-[1400px] px-4 md:px-6">
+          <div className="mx-auto w-full max-w-[1380px] px-4 md:px-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
               {/* Story */}
               <div>
@@ -141,7 +177,6 @@ const About = () => {
                   cultural nuance and consumer behavior that make the UAE unique.
                 </p>
 
-                {/* Mini feature row */}
                 <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
                   {[
                     { Icon: Rocket, title: "Fast Execution" },
@@ -165,22 +200,10 @@ const About = () => {
                   <h3 className="text-xl font-semibold mb-5">Our Values</h3>
                   <div className="space-y-4">
                     {[
-                      {
-                        Icon: Sparkles,
-                        text: "Excellence in every campaign",
-                      },
-                      {
-                        Icon: Shield,
-                        text: "Transparency in process and results",
-                      },
-                      {
-                        Icon: TrendingUp,
-                        text: "Innovation that drives growth",
-                      },
-                      {
-                        Icon: Users,
-                        text: "Partnership mindset with every client",
-                      },
+                      { Icon: Sparkles, text: "Excellence in every campaign" },
+                      { Icon: Shield, text: "Transparency in process and results" },
+                      { Icon: TrendingUp, text: "Innovation that drives growth" },
+                      { Icon: Users, text: "Partnership mindset with every client" },
                     ].map(({ Icon, text }, i) => (
                       <div key={i} className="flex items-start gap-3">
                         <div className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-md bg-primary/10">
@@ -196,45 +219,66 @@ const About = () => {
           </div>
         </section>
 
-       
-
-        {/* ======= TESTIMONIALS ======= */}
-        <section className="py-20">
+        {/* ======= TESTIMONIALS (SLIDER) ======= */}
+        <section className="py-20 bg-muted/20">
           <div className="mx-auto w-full max-w-[1380px] px-4 md:px-6">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-              What Our Clients Say
-            </h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-              {[
-                {
-                  quote:
-                    "UAE Digital transformed our online presence. Local insight + global best practices = results.",
-                  name: "Ahmed S.",
-                  role: "CEO, Tech Startup",
-                },
-                {
-                  quote:
-                    "A game-changer for our marketing. Strategy first, clean execution, transparent reporting.",
-                  name: "Fatima K.",
-                  role: "Marketing Manager, F&B Brand",
-                },
-                {
-                  quote:
-                    "Helped us reach new audiences and grow significantly in the UAE market.",
-                  name: "Sarah M.",
-                  role: "Director, Luxury Real Estate",
-                },
-              ].map((t, i) => (
-                <Card key={i} className="border-border/40 bg-background/80 backdrop-blur-sm">
-                  <CardContent className="p-6">
-                    <p className="text-muted-foreground italic">“{t.quote}”</p>
-                    <div className="mt-4 font-semibold">{t.name}</div>
-                    <div className="text-sm text-muted-foreground">{t.role}</div>
-                  </CardContent>
-                </Card>
-              ))}
+            {/* Heading + rating */}
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold">What Our Clients Say</h2>
+              <div className="mt-4 flex flex-col items-center gap-2">
+                <div className="flex items-center gap-1">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <svg
+                      key={i}
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                      className="h-5 w-5 text-yellow-400"
+                    >
+                      <path d="M12 .587l3.668 7.431L24 9.75l-6 5.847L19.335 24 12 19.897 4.665 24 6 15.597 0 9.75l8.332-1.732z" />
+                    </svg>
+                  ))}
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Rated <span className="font-semibold text-foreground">4.9/5</span>{" "}
+                  based on <span className="font-semibold text-foreground">989 reviews</span>
+                </p>
+                <div className="flex items-center gap-4 mt-2">
+                  <img src={trustpilot} alt="Trustpilot" className="h-6" />
+                  <img src={google} alt="Google" className="h-6" />
+                </div>
+              </div>
             </div>
+
+            {/* Slider (loop + autoplay, no arrows/dots) */}
+            <Swiper
+              modules={[Autoplay]}
+              spaceBetween={24}
+              slidesPerView={1}
+              loop
+              autoplay={{ delay: 5000, disableOnInteraction: false }}
+              breakpoints={{
+                768: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+              }}
+              className="pb-6 overflow-visible"
+            >
+              {testimonials.map((t, i) => (
+                <SwiperSlide key={i}>
+                  <Card className="h-full border border-border/40 bg-background/80 backdrop-blur-sm rounded-2xl shadow-md hover:shadow-xl transition-all duration-300">
+                    <CardContent className="p-6 flex flex-col h-full">
+                      <p className="italic text-foreground/90 flex-grow text-lg leading-relaxed">
+                        “{t.quote}”
+                      </p>
+                      <div className="mt-6">
+                        <div className="font-semibold text-lg">{t.name}</div>
+                        <div className="text-sm text-muted-foreground">{t.role}</div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
         </section>
 
