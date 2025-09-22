@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Search, Users, PenTool, Target, Star } from "lucide-react";
 import { Link } from "react-router-dom";
-import heroImage from "@/assets/hero-image.jpg";
+import heroImage from "@/assets/hero-image.webp";
 
 const Index = () => {
   const services = [
@@ -269,4 +269,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+  export default Index;

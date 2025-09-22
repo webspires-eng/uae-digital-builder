@@ -2,7 +2,7 @@
 import Layout from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import hero from "@/assets/hero-image.jpg";
+import hero from "@/assets/hero-image.webp";
 import trustpilot from "@/assets/trustpilot-logo-icon.svg";
 import google from "@/assets/google-map-icon.svg";
 
@@ -111,21 +111,22 @@ const About = () => {
                 </div>
 
                 {/* Floating stat */}
-                <div className="hidden md:flex absolute -bottom-6 -left-6">
-                  <Card className="rounded-2xl bg-background/80 backdrop-blur-sm border-border/50">
-                    <CardContent className="p-4 sm:p-5">
-                      <div className="flex items-center gap-3">
-                        <TrendingUp className="h-5 w-5 text-primary" />
-                        <div>
-                          <div className="text-sm text-muted-foreground">
-                            Avg. client growth (12 mo)
-                          </div>
-                          <div className="text-lg font-semibold">+172%</div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
+               {/* Floating stat */}
+<div className="hidden md:flex absolute -bottom-6 -left-6">
+  <Card className="rounded-2xl bg-black/30 backdrop-blur-md border-white/10">
+    <CardContent className="p-4 sm:p-5">
+      <div className="flex items-center gap-3">
+        <TrendingUp className="h-5 w-5 text-white" />
+        <div>
+          <div className="text-sm text-white/80">
+            Avg. client growth (12 mo)
+          </div>
+          <div className="text-lg font-semibold text-white">+172%</div>
+        </div>
+      </div>
+    </CardContent>
+  </Card>
+</div>
               </div>
             </div>
           </div>
