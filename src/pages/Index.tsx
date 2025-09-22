@@ -72,46 +72,86 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Services Overview */}
-      <section className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Our <span className="gradient-text">Services</span>
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Comprehensive digital marketing solutions designed to accelerate 
-              your business growth in the competitive UAE market.
-            </p>
+{/* Services Overview */}
+<section className="relative py-24">
+  {/* subtle background */}
+  <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-muted/40 via-background to-background" />
+
+  <div className="relative mx-auto w-full max-w-[1400px] px-4 md:px-6">
+    {/* Heading */}
+    <div className="text-center mb-14">
+      <span className="inline-flex items-center gap-2 rounded-full border border-border/50 bg-card/60 px-3 py-1 text-xs uppercase tracking-wide text-muted-foreground">
+        What we do
+      </span>
+
+      <h2 className="mt-4 text-3xl md:text-5xl font-bold leading-tight">
+        Our <span className="gradient-text">Services</span>
+      </h2>
+
+      <p className="mt-4 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+        Growth-focused marketing built for the UAE—clear strategy, fast execution, measurable ROI.
+      </p>
+    </div>
+
+    {/* Grid */}
+    <div className="grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-stretch">
+      {services.map((service, i) => {
+        const Icon = service.icon;
+        return (
+          <div
+            key={i}
+            className="group h-full rounded-2xl bg-gradient-to-b from-card/60 to-card/30 border border-border/50 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+          >
+            {/* 1px gradient frame */}
+            <div className="h-full rounded-2xl p-[1px] bg-gradient-to-br from-primary/20 via-accent/10 to-transparent">
+              <Card className="h-full rounded-[15px] bg-background/80 backdrop-blur-sm flex flex-col">
+                <CardContent className="flex flex-col flex-1 p-6">
+                  {/* Icon */}
+                  <div className="mb-4 inline-flex size-12 items-center justify-center rounded-xl bg-primary/10 transition-colors group-hover:bg-primary/15">
+                    <Icon className="h-6 w-6 text-primary" />
+                  </div>
+
+                  {/* Title + description */}
+                  <h3 className="text-lg font-semibold">{service.title}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground flex-1">
+                    {service.description}
+                  </p>
+
+                  {/* Footer (sticks to bottom) */}
+                  <div className="mt-6 flex items-center justify-between">
+                    <span className="text-xs text-muted-foreground/80">
+                      From AED <span className="font-medium text-foreground">—</span>
+                    </span>
+                    <Link
+                      to={`/services#${i}`}
+                      className="text-sm font-medium text-primary hover:underline"
+                    >
+                      Learn more →
+                    </Link>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {services.map((service, index) => {
-              const IconComponent = service.icon;
-              return (
-                <Card key={index} className="card-elegant hover:shadow-elegant transition-all duration-300 group">
-                  <CardContent className="p-6 text-center">
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
-                      <IconComponent className="w-6 h-6 text-primary" />
-                    </div>
-                    <h3 className="font-semibold mb-2">{service.title}</h3>
-                    <p className="text-muted-foreground text-sm">{service.description}</p>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
-          
-          <div className="text-center mt-12">
-            <Link to="/services">
-              <Button variant="outline" className="px-8 py-3">
-                View All Services
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
+        );
+      })}
+    </div>
+
+    {/* CTA */}
+    <div className="text-center mt-14">
+      <Link to="/services">
+        <Button
+          variant="outline"
+          className="px-8 py-3 hover:scale-[1.02] transition-transform"
+        >
+          View All Services
+          <ArrowRight className="w-4 h-4 ml-2" />
+        </Button>
+      </Link>
+    </div>
+  </div>
+</section>
+
 
       {/* Results Section */}
       <section className="py-20">
