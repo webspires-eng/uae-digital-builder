@@ -19,7 +19,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     <div className="min-h-screen bg-background transition-colors duration-300">
       {/* Header */}
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/60 border-b border-border/30">
-        <div className="container-wide">
+        <div className="mx-auto w-full max-w-[1380px] px-4 md:px-6">
           <div className="flex justify-between items-center py-6">
             <div className="flex items-center">
               <Link to="/" className="text-3xl font-bold gradient-text">
@@ -61,7 +61,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
       {/* Footer */}
       <footer className="bg-card/50 backdrop-blur-sm border-t border-border/30 mt-20">
-        <div className="container-wide">
+        <div className="mx-auto w-full max-w-[1380px] px-4 md:px-6">
           <div className="py-16 text-center border-b border-border/30">
             <h2 className="text-4xl font-bold gradient-text mb-6">
               Ready to Accelerate Your Growth?
