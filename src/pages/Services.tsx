@@ -1,39 +1,135 @@
 import Layout from "@/components/Layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Search, Users, PenTool, Target } from "lucide-react";
+import {
+  Search,
+  Users,
+  PenTool,
+  Target,
+  Database,
+  Megaphone,
+  ShoppingCart,
+  ShieldCheck,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Services = () => {
   const services = [
+    // ---- From your website screenshot ----
+    {
+      id: "crm",
+      icon: Database,
+      title: "CRM Development",
+      description:
+        "Webspires provides CRM development services in the UK. We’re a leading CRM provider offering end-to-end solutions to streamline workflows and increase productivity.",
+      features: [
+        "Custom CRM Solutions",
+        "Workflow Automation",
+        "Data Security & Backup",
+        "Integration with Existing Systems",
+      ],
+    },
+    {
+      id: "google-ads",
+      icon: Target,
+      title: "Google Ads",
+      description:
+        "Webspires covers every step of your Google Ads campaigns — from strategy and build to tracking, optimization, and reporting.",
+      features: [
+        "Campaign Strategy",
+        "Keyword Targeting",
+        "Ad Optimization",
+        "Performance Reporting",
+      ],
+    },
+    {
+      id: "meta-ads",
+      icon: Megaphone,
+      title: "Meta Ads (Facebook & Instagram)",
+      description:
+        "Full-funnel advertising across Meta platforms to reach, retarget, and convert your ideal audience.",
+      features: [
+        "Facebook Campaigns",
+        "Instagram Ads",
+        "Audience Retargeting",
+        "Creative & Copy Testing",
+      ],
+    },
+    {
+      id: "shopify",
+      icon: ShoppingCart,
+      title: "Shopify Development",
+      description:
+        "Custom Shopify stores built for conversions — from theme development to performance optimization.",
+      features: [
+        "Custom Themes",
+        "App Integrations",
+        "Store Optimization",
+        "E-commerce Automation",
+      ],
+    },
     {
       id: "seo",
       icon: Search,
-      title: "Search Engine Optimization (SEO)",
-      description: "Improve your website's visibility on search engines and drive organic traffic that converts. Our SEO strategies are tailored for the UAE market.",
-      features: ["Keyword Research & Strategy", "On-Page Optimization", "Technical SEO Audits", "Local SEO for UAE Market"]
+      title: "SEO",
+      description:
+        "Customized search engine optimization to increase visibility, rankings, and qualified traffic.",
+      features: ["Keyword Research", "On-page SEO", "Technical SEO", "Local SEO"],
     },
     {
       id: "social-media",
       icon: Users,
-      title: "Social Media Marketing",
-      description: "Build engaging brand communities on Instagram, LinkedIn, and X (formerly Twitter). Connect authentically with your UAE audience.",
-      features: ["Content Calendar Planning", "Community Management", "Influencer Partnerships", "Social Media Advertising"]
+      title: "Social Media",
+      description:
+        "Content, community, and campaigns that grow your brand and drive engagement across key platforms.",
+      features: [
+        "Content Strategy",
+        "Community Management",
+        "Influencer Marketing",
+        "Social Ads",
+      ],
     },
     {
-      id: "content-creation",
-      icon: PenTool,
-      title: "Content Creation & Strategy",
-      description: "Create compelling blog posts, videos, and marketing copy that resonates with your audience and drives engagement across all platforms.",
-      features: ["Blog Writing & Strategy", "Video Content Production", "Marketing Copy", "Brand Storytelling"]
+      id: "google-guarantee",
+      icon: ShieldCheck,
+      title: "Google Guarantee",
+      description:
+        "Build trust and capture high-intent leads with Local Services Ads and the Google Guarantee badge.",
+      features: [
+        "LSA Setup & Verification",
+        "Lead Management",
+        "Bid & Budget Tuning",
+        "Performance Tracking",
+      ],
     },
+
+    // ---- Keep the ones already in your code ----
+    // {
+    //   id: "content-creation",
+    //   icon: PenTool,
+    //   title: "Content Creation & Strategy",
+    //   description:
+    //     "High-quality blogs, videos, and marketing copy that resonate with your audience and fuel growth.",
+    //   features: [
+    //     "Blog Writing & Strategy",
+    //     "Video Content Production",
+    //     "Marketing Copy",
+    //     "Brand Storytelling",
+    //   ],
+    // },
     {
       id: "ppc-advertising",
       icon: Target,
       title: "Paid Advertising (PPC)",
-      description: "Run targeted campaigns on Google and social media platforms to maximize ROI. Every dirham spent is optimized for maximum return.",
-      features: ["Google Ads Management", "Social Media Ads", "Campaign Optimization", "Performance Analytics"]
-    }
+      description:
+        "ROI-focused campaigns across Google and social to maximize returns and scale efficiently.",
+      features: [
+        "Google Ads Management",
+        "Social Media Ads",
+        "Campaign Optimization",
+        "Performance Analytics",
+      ],
+    },
   ];
 
   return (
@@ -46,7 +142,7 @@ const Services = () => {
               Our <span className="gradient-text">Services</span>
             </h1>
             <p className="text-xl text-muted-foreground">
-              Comprehensive digital marketing solutions designed to accelerate your 
+              Comprehensive digital marketing solutions designed to accelerate your
               business growth in the competitive UAE market.
             </p>
           </div>
@@ -56,7 +152,10 @@ const Services = () => {
             {services.map((service) => {
               const IconComponent = service.icon;
               return (
-                <Card key={service.id} className="card-elegant hover:shadow-elegant transition-all duration-300 group">
+                <Card
+                  key={service.id}
+                  className="card-elegant hover:shadow-elegant transition-all duration-300 group"
+                >
                   <CardHeader>
                     <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                       <IconComponent className="w-6 h-6 text-primary" />
@@ -74,7 +173,10 @@ const Services = () => {
                       ))}
                     </ul>
                     <Link to={`/services/${service.id}`}>
-                      <Button variant="outline" className="w-full group-hover:border-primary group-hover:text-primary">
+                      <Button
+                        variant="outline"
+                        className="w-full group-hover:border-primary group-hover:text-primary"
+                      >
                         Learn More
                       </Button>
                     </Link>
@@ -88,8 +190,8 @@ const Services = () => {
           <div className="bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl p-8 md:p-12 text-center">
             <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
             <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Let's discuss how our services can help your business achieve its digital marketing goals. 
-              Schedule a free consultation with our experts today.
+              Let's discuss how our services can help your business achieve its digital
+              marketing goals. Schedule a free consultation with our experts today.
             </p>
             <Link to="/contact">
               <Button className="btn-primary text-lg px-8 py-4">

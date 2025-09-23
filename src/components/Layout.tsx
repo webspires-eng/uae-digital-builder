@@ -63,8 +63,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       {/* Footer */}
       <footer className="bg-card/50 backdrop-blur-sm border-t border-border/30 mt-20">
         <div className="mx-auto w-full max-w-[1380px] px-4 md:px-6">
-        <section className="py-16">
-  <div className="mx-auto w-full max-w-[1380px] px-4 md:px-6">
+      <section className="py-16">
+  <div className="mx-auto w-full max-w-[1380px]"> {/* Removed px-4 md:px-6 */}
     <Card className="rounded-3xl border-border/40 bg-gradient-to-r from-primary/10 via-accent/10 to-transparent">
       <CardContent className="p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6">
         <div>

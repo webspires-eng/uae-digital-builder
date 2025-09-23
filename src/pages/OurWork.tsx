@@ -96,53 +96,59 @@ const OurWork = () => {
           {/* Projects Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
             {projects.map((project) => (
-              <Card key={project.id} className="card-premium hover:card-glow group overflow-hidden">
-                <div className="aspect-video bg-muted/50 relative overflow-hidden">
-                  <img 
-                    src={project.image} 
-                    alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute bottom-4 left-4">
-                    <Badge variant="secondary" className="bg-white/90 text-black">
-                      {project.category}
-                    </Badge>
-                  </div>
-                </div>
-                <CardContent className="p-6">
-                  <div className="flex justify-between items-start mb-3">
-                    <h3 className="text-xl font-semibold">{project.title}</h3>
-                    <Link to={`/work/${project.id}`}>
-                      <Button size="sm" variant="ghost" className="p-2 hover:bg-primary/10">
-                        <ArrowUpRight className="w-4 h-4" />
-                      </Button>
-                    </Link>
-                  </div>
-                  
-                  <p className="text-muted-foreground mb-4 flex items-center">
-                    <TrendingUp className="w-4 h-4 text-accent mr-2" />
-                    {project.description}
-                  </p>
-                  
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.services.map((service) => (
-                      <Badge key={service} variant="outline" className="text-xs">
-                        {service}
-                      </Badge>
-                    ))}
-                  </div>
-                  
-                  <div className="border-t border-border/50 pt-4">
-                    <p className="text-sm text-muted-foreground italic mb-2">
-                      "{project.testimonial}"
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      — {project.client}
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
+              <Card key={project.id} className="relative overflow-hidden rounded-xl group hover:shadow-xl transition">
+  {/* Left Accent Stripe */}
+  <span className="absolute inset-y-0 left-0 w-1.5 bg-gradient-to-b from-primary to-accent" />
+
+  {/* Image */}
+  <div className="relative aspect-video">
+    <img 
+      src={project.image || "https://source.unsplash.com/800x600/?business,marketing"} 
+      alt={project.title}
+      className="w-full h-full object-cover rounded-t-xl group-hover:scale-[1.02] transition-transform duration-300"
+    />
+    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+    <Badge className="absolute bottom-3 left-3 bg-white/90 text-black">
+      {project.category}
+    </Badge>
+  </div>
+
+  {/* Content */}
+  <CardContent className="p-6 pl-7">
+    <div className="flex items-start justify-between mb-3">
+      <h3 className="text-xl font-semibold">{project.title}</h3>
+      <Link to={`/work/${project.id}`}>
+        <Button size="icon" variant="ghost" className="hover:bg-primary/10">
+          <ArrowUpRight className="w-4 h-4" />
+        </Button>
+      </Link>
+    </div>
+
+    <p className="text-muted-foreground mb-3 flex items-center">
+      <TrendingUp className="w-4 h-4 mr-2 text-primary" /> {project.description}
+    </p>
+
+    <div className="flex flex-wrap gap-2 mb-4">
+      {project.services.map((s) => (
+        <Badge key={s} variant="outline" className="text-xs">
+          {s}
+        </Badge>
+      ))}
+    </div>
+
+    {/* <div className="text-sm text-muted-foreground italic mb-1">
+      “{project.testimonial}”
+    </div>
+    <div className="text-xs text-muted-foreground">— {project.client}</div> */}
+
+    <div className="mt-5">
+      <Link to={`/work/${project.id}`}>
+        <Button className="btn-accent">View Case Study</Button>
+      </Link>
+    </div>
+  </CardContent>
+</Card>
+
             ))}
           </div>
 
@@ -169,22 +175,8 @@ const OurWork = () => {
             </div>
           </div>
 
-          {/* CTA Section */}
-          <div className="card-premium text-center relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-accent/10"></div>
-            <div className="relative z-10">
-              <h2 className="text-3xl font-bold gradient-text mb-6">Ready to Join Our Success Stories?</h2>
-              <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Let's create a digital marketing strategy that delivers measurable results 
-                for your business. Schedule a free consultation to get started.
-              </p>
-              <Link to="/contact">
-                <Button className="btn-accent text-lg px-12 py-6">
-                  Start Your Success Story
-                </Button>
-              </Link>
-            </div>
-          </div>
+          
+          
         </div>
       </div>
     </Layout>
