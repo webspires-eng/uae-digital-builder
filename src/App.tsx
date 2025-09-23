@@ -23,19 +23,21 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/services/:serviceId" element={<SingleService />} />
-            <Route path="/work" element={<OurWork />} />
-            <Route path="/work/:workId" element={<SingleWork />} />
-            <Route path="/insights" element={<Insights />} />
-            <Route path="/contact" element={<Contact />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
+  <Routes>
+    <Route path="/" element={<Index />} />
+    <Route path="/about" element={<About />} />
+    <Route path="/services" element={<Services />} />
+    {/* ✅ use slug instead of id */}
+    <Route path="/services/:slug" element={<SingleService />} />
+    <Route path="/work" element={<OurWork />} />
+    <Route path="/work/:workId" element={<SingleWork />} />
+    <Route path="/insights" element={<Insights />} />
+    <Route path="/contact" element={<Contact />} />
+    {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+    <Route path="*" element={<NotFound />} />
+  </Routes>
+</BrowserRouter>
+
       </TooltipProvider>
     </ThemeProvider>
   </QueryClientProvider>
