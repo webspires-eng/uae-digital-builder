@@ -11,6 +11,11 @@
   },
   "pluginOptions": {},
   "attributes": {
+    "slug": {
+      "type": "uid",
+      "targetField": "Title",
+      "required": true
+    },
     "Title": {
       "type": "string"
     },

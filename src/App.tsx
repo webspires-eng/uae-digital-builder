@@ -26,9 +26,9 @@ const App = () => (
   <Routes>
     <Route path="/" element={<Index />} />
     <Route path="/about" element={<About />} />
-    <Route path="/services" element={<Services />} />
-    {/* ✅ use slug instead of id */}
-    <Route path="/services/:slug" element={<SingleService />} />
+<Route path="/services" element={<Services />} />
+<Route path="/services/:slug" element={<SingleService />} />
+
     <Route path="/work" element={<OurWork />} />
     <Route path="/work/:workId" element={<SingleWork />} />
     <Route path="/insights" element={<Insights />} />
