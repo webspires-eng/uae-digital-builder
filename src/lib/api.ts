@@ -1,16 +1,25 @@
 // src/lib/api.ts
-const API = import.meta.env.VITE_API_URL || "http://localhost:1337";
 
-// make URL absolute (handles relative Strapi media paths)
+/** Base URL for Strapi API */
+export const API = import.meta.env.VITE_API_URL || "http://localhost:1337";
+
+/** Make a media URL absolute (Strapi returns relative paths) */
 const abs = (u?: string) => (u?.startsWith("http") ? u : u ? `${API}${u}` : "");
 
-// works with both shapes: { attributes:{…} } or flat
+/** Works with both shapes: { attributes:{…} } or flat */
 const attr = (item: any) => item?.attributes ?? item;
 
-// media helper: supports both .data.attributes.url and flat .url
-const mediaUrl = (m: any) => abs(m?.data?.attributes?.url ?? m?.url ?? "");
+/** Media helper: supports all common Strapi shapes */
+const mediaUrl = (m: any) => {
+  const url =
+    m?.data?.attributes?.url ?? // relation (populated)
+    m?.attributes?.url ??       // media in arrays (gallery items)
+    m?.url ??                   // flat
+    "";
+  return abs(url);
+};
 
-// Blocks -> plain text (handy for card teasers)
+/** Blocks -> plain text (handy for teasers on cards) */
 const blocksToText = (blocks: any): string => {
   if (!Array.isArray(blocks)) return typeof blocks === "string" ? blocks : "";
   return blocks
@@ -24,38 +33,81 @@ const blocksToText = (blocks: any): string => {
     .trim();
 };
 
-/** List services — fields: slug, title, short, description, gallery, serviceicon */
+/** Build a URL with query params */
+const withParams = (base: string, params: Record<string, string | number | boolean | undefined>) => {
+  const usp = new URLSearchParams();
+  Object.entries(params).forEach(([k, v]) => {
+    if (v !== undefined && v !== null) usp.set(k, String(v));
+  });
+  return `${base}?${usp.toString()}`;
+};
+
+/** ------------------------
+ *  List Services
+ *  fields: slug, title, short, description, gallery, serviceicon (IconHub)
+ *  ------------------------ */
 export async function getServices() {
-  // Only populate what exists on your model
-  const url = `${API}/api/services?populate=gallery&fields[0]=slug&fields[1]=title&fields[2]=short&fields[3]=description&fields[4]=serviceicon`;
+  const url = withParams(`${API}/api/services`, {
+    "populate[gallery]": "true",
+    "fields[0]": "slug",
+    "fields[1]": "title",
+    "fields[2]": "short",
+    "fields[3]": "description",
+    "fields[4]": "serviceicon", // IconHub JSON field
+    "publicationState": "live",
+    "sort[0]": "id:desc",
+  });
+
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Failed to fetch services (${res.status})`);
   const { data } = await res.json();
 
   return (data || []).map((item: any) => {
     const a = attr(item);
+
+    // IconHub can store { name, svg } or a string. Normalize to name/svg.
+    const iconField = a.serviceicon;
+    const serviceiconName =
+      (typeof iconField === "object" ? iconField?.name : undefined) ??
+      (typeof iconField === "string" ? iconField : "");
+    const serviceiconSvg =
+      (typeof iconField === "object" ? iconField?.svg : undefined) ??
+      (typeof iconField === "string" && iconField.trim().startsWith("<svg")
+        ? iconField
+        : "");
+
     return {
       id: item.id,
       slug: a.slug,
       title: a.title,
-      short: a.short ?? "",                          // blocks
+      short: a.short ?? "", // blocks
       shortText: blocksToText(a.short ?? a.description ?? ""),
-      description: a.description ?? "",              // blocks
-      serviceicon: a.serviceicon ?? "",              // custom field (string)
-      // use first gallery image as featured
+      description: a.description ?? "", // blocks
+      serviceiconName,
+      serviceiconSvg,
+      // first gallery image as featured
       featured: mediaUrl(a.gallery?.data?.[0]),
       gallery: (a.gallery?.data ?? []).map((g: any) => mediaUrl(g)),
     };
   });
 }
 
-/** Single service by slug — same fields */
+/** ------------------------
+ *  Single Service by slug
+ *  (same field shape as list)
+ *  ------------------------ */
 export async function getServiceBySlug(slug: string) {
-  const url =
-    `${API}/api/services` +
-    `?filters[slug][$eq]=${encodeURIComponent(slug)}` +
-    `&populate=gallery` +
-    `&fields[0]=slug&fields[1]=title&fields[2]=short&fields[3]=description&fields[4]=serviceicon`;
+  const url = withParams(`${API}/api/services`, {
+    "filters[slug][$eq]": slug,
+    "populate[gallery]": "true",
+    "fields[0]": "slug",
+    "fields[1]": "title",
+    "fields[2]": "short",
+    "fields[3]": "description",
+    "fields[4]": "serviceicon",
+    "publicationState": "live",
+    "pagination[pageSize]": 1,
+  });
 
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Failed to fetch service (${res.status})`);
@@ -65,13 +117,25 @@ export async function getServiceBySlug(slug: string) {
   const item = data[0];
   const a = attr(item);
 
+  const iconField = a.serviceicon;
+  const serviceiconName =
+    (typeof iconField === "object" ? iconField?.name : undefined) ??
+    (typeof iconField === "string" ? iconField : "");
+  const serviceiconSvg =
+    (typeof iconField === "object" ? iconField?.svg : undefined) ??
+    (typeof iconField === "string" && iconField.trim().startsWith("<svg")
+      ? iconField
+      : "");
+
   return {
     id: item.id,
     slug: a.slug,
     title: a.title,
     short: a.short ?? "",
+    shortText: blocksToText(a.short ?? a.description ?? ""),
     description: a.description ?? "",
-    serviceicon: a.serviceicon ?? "",
+    serviceiconName,
+    serviceiconSvg,
     featured: mediaUrl(a.gallery?.data?.[0]),
     gallery: (a.gallery?.data ?? []).map((g: any) => mediaUrl(g)),
   };
