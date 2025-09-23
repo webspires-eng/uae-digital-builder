@@ -1,14 +1,33 @@
+// src/lib/api.ts
 const API = import.meta.env.VITE_API_URL || "http://localhost:1337";
+
+// make URL absolute (handles relative Strapi media paths)
 const abs = (u?: string) => (u?.startsWith("http") ? u : u ? `${API}${u}` : "");
 
-// Works with both shapes: { attributes: {...} } or flat keys
+// works with both shapes: { attributes:{…} } or flat
 const attr = (item: any) => item?.attributes ?? item;
-// Media helper: supports both .data.attributes.url and flat .url
+
+// media helper: supports both .data.attributes.url and flat .url
 const mediaUrl = (m: any) => abs(m?.data?.attributes?.url ?? m?.url ?? "");
 
-/** List services */
+// Blocks -> plain text (handy for card teasers)
+const blocksToText = (blocks: any): string => {
+  if (!Array.isArray(blocks)) return typeof blocks === "string" ? blocks : "";
+  return blocks
+    .map((b: any) =>
+      Array.isArray(b.children)
+        ? b.children.map((c: any) => c?.text ?? "").join("")
+        : ""
+    )
+    .join(" ")
+    .replace(/\s+/g, " ")
+    .trim();
+};
+
+/** List services — fields: slug, title, short, description, gallery, serviceicon */
 export async function getServices() {
-  const url = `${API}/api/services?populate=Featured&populate=Gallery`;
+  // Only populate what exists on your model
+  const url = `${API}/api/services?populate=gallery&fields[0]=slug&fields[1]=title&fields[2]=short&fields[3]=description&fields[4]=serviceicon`;
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Failed to fetch services (${res.status})`);
   const { data } = await res.json();
@@ -17,26 +36,26 @@ export async function getServices() {
     const a = attr(item);
     return {
       id: item.id,
-      title: a.Title ?? a.title,
-      slug: a.slug ?? a.documentId, // prefer slug, fallback to documentId
-      short: a.ShortDescriptions ?? a.shortDescriptions ?? "",
-      description: a.Descriptions ?? a.descriptions ?? [],
-      featured: mediaUrl(a.Featured ?? a.featured),
-      gallery:
-        (a.Gallery?.data ?? a.gallery?.data ?? a.Gallery ?? a.gallery ?? []).map(
-          (g: any) => mediaUrl(g)
-        ),
+      slug: a.slug,
+      title: a.title,
+      short: a.short ?? "",                          // blocks
+      shortText: blocksToText(a.short ?? a.description ?? ""),
+      description: a.description ?? "",              // blocks
+      serviceicon: a.serviceicon ?? "",              // custom field (string)
+      // use first gallery image as featured
+      featured: mediaUrl(a.gallery?.data?.[0]),
+      gallery: (a.gallery?.data ?? []).map((g: any) => mediaUrl(g)),
     };
   });
 }
 
-/** Single service by slug (or documentId fallback) */
+/** Single service by slug — same fields */
 export async function getServiceBySlug(slug: string) {
   const url =
     `${API}/api/services` +
-    `?filters[$or][0][slug][$eq]=${encodeURIComponent(slug)}` +
-    `&filters[$or][1][documentId][$eq]=${encodeURIComponent(slug)}` +
-    `&populate=Featured&populate=Gallery`;
+    `?filters[slug][$eq]=${encodeURIComponent(slug)}` +
+    `&populate=gallery` +
+    `&fields[0]=slug&fields[1]=title&fields[2]=short&fields[3]=description&fields[4]=serviceicon`;
 
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Failed to fetch service (${res.status})`);
@@ -45,16 +64,15 @@ export async function getServiceBySlug(slug: string) {
 
   const item = data[0];
   const a = attr(item);
+
   return {
     id: item.id,
-    title: a.Title ?? a.title,
-    slug: a.slug ?? a.documentId,
-    short: a.ShortDescriptions ?? a.shortDescriptions ?? "",
-    description: a.Descriptions ?? a.descriptions ?? [],
-    featured: mediaUrl(a.Featured ?? a.featured),
-    gallery:
-      (a.Gallery?.data ?? a.gallery?.data ?? a.Gallery ?? a.gallery ?? []).map(
-        (g: any) => mediaUrl(g)
-      ),
+    slug: a.slug,
+    title: a.title,
+    short: a.short ?? "",
+    description: a.description ?? "",
+    serviceicon: a.serviceicon ?? "",
+    featured: mediaUrl(a.gallery?.data?.[0]),
+    gallery: (a.gallery?.data ?? []).map((g: any) => mediaUrl(g)),
   };
 }

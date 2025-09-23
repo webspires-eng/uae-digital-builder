@@ -552,9 +552,8 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    Descriptions: Schema.Attribute.Blocks;
-    Featured: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    Gallery: Schema.Attribute.Media<
+    description: Schema.Attribute.Blocks;
+    gallery: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
@@ -565,9 +564,17 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    ShortDescriptions: Schema.Attribute.Blocks;
-    slug: Schema.Attribute.UID<'Title'> & Schema.Attribute.Required;
-    Title: Schema.Attribute.String;
+    serviceicon: Schema.Attribute.JSON &
+      Schema.Attribute.CustomField<
+        'plugin::strapi-plugin-iconhub.iconhub',
+        {
+          storeIconData: true;
+          storeIconName: true;
+        }
+      >;
+    short: Schema.Attribute.Blocks;
+    slug: Schema.Attribute.UID<'title'>;
+    title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

@@ -13,29 +13,19 @@
   "attributes": {
     "slug": {
       "type": "uid",
-      "targetField": "Title",
-      "required": true
+      "targetField": "title",
+      "required": false
     },
-    "Title": {
+    "title": {
       "type": "string"
     },
-    "ShortDescriptions": {
+    "short": {
       "type": "blocks"
     },
-    "Descriptions": {
+    "description": {
       "type": "blocks"
     },
-    "Featured": {
-      "type": "media",
-      "multiple": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
-    },
-    "Gallery": {
+    "gallery": {
       "type": "media",
       "multiple": true,
       "allowedTypes": [
@@ -44,6 +34,14 @@
         "videos",
         "audios"
       ]
+    },
+    "serviceicon": {
+      "type": "customField",
+      "customField": "plugin::strapi-plugin-iconhub.iconhub",
+      "options": {
+        "storeIconData": true,
+        "storeIconName": true
+      }
     }
   }
 }
